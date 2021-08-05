@@ -9,12 +9,20 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex'
 import asideMenu from './components/asideMenu.vue'
 export default {
   name: 'App',
   components: {
     asideMenu,
-  }
+  },
+  methods: {
+    ...mapActions(['fetchLocations', 'fetchPharmacies'])
+  },
+  mounted() {
+    this.fetchLocations()
+    this.fetchPharmacies()
+  },
 }
 </script>
 
