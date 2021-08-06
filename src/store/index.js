@@ -6,6 +6,26 @@ export default createStore({
     currDistrict: '北投區',
     location: [],
     stores: [],
+    keywords: '',
+
+  },
+  getters: {
+    cityList (state) {
+      // 城市
+      return state.location.map(d => d.name)
+    },
+    districtList (state) {
+      return state.location.find(d => d.name === state.currCity) ?.districts || []
+    },
+    filteredStores (state) {
+      // 依縣市與行政區分組
+      const { stores } = state
+      
+      // 加入關鍵字判斷功能
+      return state.keywords
+        ? stores.filter(d => d.name.includes(state.keywords))
+        : stores.filter(d => d.county === state.currCity && d.town === state.currDistrict)
+    },
   },
   mutations: {
     setcurrCity (state, payload) {
@@ -20,7 +40,9 @@ export default createStore({
     setStores (state, payload) {
       state.stores = payload
     },
-
+    setKeywords (state, payload) {
+      state.keywords = payload
+    },
   },
   actions: {
     // 取得行政區資料
