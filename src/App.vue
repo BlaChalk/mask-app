@@ -1,10 +1,10 @@
 <template>
 <div id="app">
   <!-- aside-menu 左側欄 -->
-  <asideMenu />
+  <asideMenu @triggerMarkerPopup="openPopup" ref="menu" />
 
   <!-- 地圖區塊 -->
-  <div class="mask-map" id="mask-map"></div>
+  <maskMap ref="map" />
   <lightBox />
 </div>
 </template>
@@ -13,13 +13,17 @@
 import { mapActions } from 'vuex'
 import asideMenu from './components/asideMenu.vue'
 import lightBox from './components/lightBox.vue'
+import maskMap from './components/maskMap.vue'
 export default {
   name: 'App',
   components: {
-    asideMenu, lightBox
+    asideMenu, lightBox, maskMap
   },
   methods: {
-    ...mapActions(['fetchLocations', 'fetchPharmacies'])
+    ...mapActions(['fetchLocations', 'fetchPharmacies']),
+    openPopup (id) {
+      this.$refs.map.triggerPopup(id)
+    }
   },
   mounted() {
     this.fetchLocations()
