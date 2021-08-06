@@ -7,6 +7,8 @@ export default createStore({
     location: [],
     stores: [],
     keywords: '',
+    showModal: false,
+    infoBoxSid: null,
 
   },
   getters: {
@@ -20,7 +22,7 @@ export default createStore({
     filteredStores (state) {
       // 依縣市與行政區分組
       const { stores } = state
-      
+
       // 加入關鍵字判斷功能
       return state.keywords
         ? stores.filter(d => d.name.includes(state.keywords))
@@ -42,6 +44,12 @@ export default createStore({
     },
     setKeywords (state, payload) {
       state.keywords = payload
+    },
+    setshowModal (state, payload) {
+      state.showModal = payload
+    },
+    setInfoBoxSid (state, payload) {
+      state.infoBoxSid = payload
     },
   },
   actions: {
