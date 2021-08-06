@@ -1,7 +1,7 @@
 <template>
   <transition name="modal">
     <div class="modal-mask" v-show="showModal">
-      <div class="modal-wrapper">
+      <div class="modal-wrapper" @click.self="close">
 
         <div class="modal-container">
           <div class="modal-body" v-if="currStore">
